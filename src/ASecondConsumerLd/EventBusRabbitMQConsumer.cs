@@ -60,7 +60,7 @@ namespace ASecondConsumerLd
                 //using (FileStream fs = File.OpenWrite(path))
                 using (var fs = new FileStream(path, FileMode.Append))
                 {
-                    byte[] info = new UTF8Encoding(true).GetBytes("\r\SECOND CONSUMER CONSUMED an event from the queue " + EventBusConstants.SecondConsumerQueue + " ->" + DateTimeOffset.UtcNow);
+                    byte[] info = new UTF8Encoding(true).GetBytes("SECOND CONSUMER CONSUMED an event from the queue " + EventBusConstants.SecondConsumerQueue + " ->" + DateTimeOffset.UtcNow);
                     // Add some information to the file.
                     fs.Write(info, 0, info.Length);
                 }
