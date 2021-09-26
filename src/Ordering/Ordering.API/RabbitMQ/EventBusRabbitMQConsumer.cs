@@ -42,6 +42,7 @@ namespace Ordering.API.RabbitMQ
             channel.BasicConsume(queue: EventBusConstants.BasketCheckoutQueue, autoAck:true, consumer: consumer);
         }
 
+        //ORDERS APPLICATION
         private async void ReceivedEvent(object sender, BasicDeliverEventArgs e)
         {
             if (e.RoutingKey == EventBusConstants.BasketCheckoutQueue)
@@ -51,10 +52,10 @@ namespace Ordering.API.RabbitMQ
 
                 // EXECUTION : Call Internal Checkout Operation
                 var command = _mapper.Map<CheckoutOrderCommand>(basketCheckoutEvent);
-                var result = await _mediator.Send(command);
+                var result = await _mediator.Send(command); //for how mediator is implemented, this will call -> CheckoutOrderHandler, implementing the interface that specify in input the command "CheckoutOrderCommand" -> IRequestHandler<CheckoutOrderCommand, OrderResponse>
 
-                writeFile();
-                Console.WriteLine("ORDERING API CONSUMED an event from the queue "+ EventBusConstants.BasketCheckoutQueue + " ->" + DateTimeOffset.UtcNow);
+                //writeFile();
+                //Console.WriteLine("ORDERING API CONSUMED an event from the queue "+ EventBusConstants.BasketCheckoutQueue + " ->" + DateTimeOffset.UtcNow);
             }
         }
 
