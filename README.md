@@ -4,6 +4,7 @@ Overall picture
 There are a couple of microservices which implemented **e-commerce** modules over **Product, Basket** and **Ordering** microservices with **NoSQL (MongoDB, Redis)** and **Relational databases (Sql Server)** with communicating over **RabbitMQ Event Driven Communication** and using **Ocelot API Gateway**.
 
 **Verticalization of -> https://medium.com/aspnetrun/microservices-architecture-on-net-3b4865eea03f**
+![Whiteboard](https://github.com/lucafilippodangelo/aspnetcore-microservices-playground/blob/master/Images/board.jpg)
 
 ### To run locally
 1. At the root directory which include **docker-compose.yml** files, run below command run "docker compose up" then ensure to have running containers for 
