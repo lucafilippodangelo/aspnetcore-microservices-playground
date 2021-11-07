@@ -32,6 +32,12 @@ services:
             context: .
             dockerfile: src/Ordering/Ordering.API/Dockerfile
 
+    cube_auction.api:
+        image: ${DOCKER_REGISTRY-}cube_auction
+        build:
+            context: .
+            dockerfile: src/Cube_Auction/Cube_Auction.API/Dockerfile
+
     #apigateway:
     #    image: ${DOCKER_REGISTRY-}apigateway
     #    build:
