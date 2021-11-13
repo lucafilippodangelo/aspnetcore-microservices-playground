@@ -7,6 +7,7 @@ namespace Cube_Auction.Core.Repositories
 {
     public interface IAuctionRepository : IRepository<Auction>
     {
+        Task<IEnumerable<Auction>> GetAuctions();
         Task<IEnumerable<Auction>> GetAuctionByName(string name);
     }
 }

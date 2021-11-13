@@ -15,6 +15,14 @@ namespace Cube_Auction.Infrastructure.Repository
         {
         }
 
+        public async Task<IEnumerable<Auction>> GetAuctions()
+        {
+            var auctionList = await _dbContext.Auctions
+                      .ToListAsync();
+
+            return auctionList;
+        }
+
         public async Task<IEnumerable<Auction>> GetAuctionByName(string name)
         {
             var auctionList = await _dbContext.Auctions

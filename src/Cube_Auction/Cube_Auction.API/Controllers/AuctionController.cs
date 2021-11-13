@@ -1,5 +1,6 @@
 ﻿using Cube_Auction.Application;
 using Cube_Auction.Application.Queries;
+using Cube_Auction.Core.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,26 +12,33 @@ using System.Threading.Tasks;
 
 namespace Cube_Auction.API.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/[controller]/[action]")]
     [ApiController]
     public class AuctionController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly IAuctionRepository _repository;
         private readonly ILogger<AuctionController> _logger;
 
-        public AuctionController(IMediator mediator, ILogger<AuctionController> logger)
+        public AuctionController(IAuctionRepository repository, ILogger<AuctionController> logger)
         {
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<AuctionResponse>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<AuctionResponse>>> GetAuctions()
+        {
+            var auctions = await _repository.GetAuctions();
+            return Ok(auctions);
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<AuctionResponse>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<AuctionResponse>>> GetAuctionByName(string name)
         {
-            var query = new GetAuctionByNameQuery(name);
-            var orders = await _mediator.Send(query);
-            return Ok(orders);
+            var auctions = await _repository.GetAuctionByName(name);
+            return Ok(auctions);
         }
 
         

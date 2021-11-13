@@ -1,3 +1,4 @@
+using Cube_Auction.Application.Handlers;
 using Cube_Auction.Core.Repositories;
 using Cube_Auction.Core.Repositories.Base;
 using Cube_Auction.Infrastructure.Data;
@@ -17,6 +18,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Cube_Auction.API
@@ -52,13 +54,13 @@ namespace Cube_Auction.API
             // Add Infrastructure Layer
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IAuctionRepository), typeof(AuctionRepository));
-            services.AddTransient<IAuctionRepository, AuctionRepository>(); // we made transient this in order to resolve in mediatR when consuming Rabbit
+            //services.AddTransient<IAuctionRepository, AuctionRepository>(); // we made transient this in order to resolve in mediatR when consuming Rabbit
 
             // Add AutoMapper
-            //services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup));
 
-            // Add MediatR
-            //services.AddMediatR(typeof(CheckoutOrderHandler).GetTypeInfo().Assembly);
+            //Add MediatR
+            services.AddMediatR(typeof(CheckoutOrderHandler).GetTypeInfo().Assembly);
 
             //Domain Level Validation
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
